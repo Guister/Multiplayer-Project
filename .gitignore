@@ -1,0 +1,14 @@
+StarterContent/
+Saved/
+Binaries/
+Build/
+Debug/
+Intermediate/
+DerivedDataCache/
+UnrealHeaderTool/
+UnrealPak/
+obj/
+*.VC.opendb
+*.opensdf
+*.sdf
+*.suo
