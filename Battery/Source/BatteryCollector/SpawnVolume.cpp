@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SpawnVolume.h"
+#include "UDPCommunication.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
 #include "Runtime/Engine/Public/TimerManager.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -28,6 +29,11 @@ void ASpawnVolume::BeginPlay()
 	
 	SpawnDelay = FMath::FRandRange(SpawnDelayRangeLow, SpawnDelayRangeHigh);
 	GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawnVolume::SpawnPickup, SpawnDelay, false);
+
+	int32 port = 60000;
+	FString address = "127.0.0.1";
+
+	FUDPCommunication connection = FUDPCommunication(address, port);
 }
 
 // Called every frame
