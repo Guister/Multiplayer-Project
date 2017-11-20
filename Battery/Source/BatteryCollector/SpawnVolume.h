@@ -28,6 +28,7 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Spawning")
 	FVector GetRandomPointInVolume();
+	
 
 protected:
 	UPROPERTY(EditAnywhere, Category = "Spawning")
