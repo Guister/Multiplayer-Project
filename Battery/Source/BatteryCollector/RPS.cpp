@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "RPS.h"
+/*#include "RPS.h"
 
 
 
@@ -13,4 +13,4 @@ bool RPSWin(int OtherTeam, int YourTeam, int Range)
 	int swift = Middle - OtherTeam;//find the velocity 
 	Yourteam = (Yourteam + swift)%Range;
 	return(YourTeam<Middle)
-}
+}*/

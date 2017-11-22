@@ -23,6 +23,7 @@ and Windows documentation on Winsock2
 #include "Runtime/Sockets/Public/Sockets.h"
 //#include "Runtime/Sockets/Private/Sockets.cpp"
 #include "Runtime/Sockets/Public/SocketSubsystem.h"
+#include "Engine.h"
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
@@ -44,13 +45,11 @@ public:
 	FUDPCommunication(FString& serverAddress, int32 portNumber);//, ESocketType socketType);
 	~FUDPCommunication();
 
-public:
-/*
-	virtual bool Init() override;
-	virtual uint32 Run() override;
-	virtual void Stop() override;
-	*/
-private:
+	/*bool sendMessage(FString Message);
+	FString GrabWaitingMessage();
+	static FString StringFromBinaryArray(const TArray<uint8>&  BinaryArray);*/
+
+
 	// Holds the socket we are sending on
 	FSocket* Socket;
 	TSharedPtr<FInternetAddr> InternetAddress;
@@ -63,6 +62,17 @@ private:
 	bool listening;
 	bool sent;
 	bool received;
+
+public:
+/*
+	virtual bool Init() override;
+	virtual uint32 Run() override;
+	virtual void Stop() override;
+	*/
+private:
+	
+
+	
 	
 	// Remote Address
 	FIPv4Endpoint RemoteEndPoint; //talvez

@@ -31,7 +31,7 @@ FUDPCommunication::FUDPCommunication(FString& serverAddress, int32 portNumber)//
 	Socket->SetNonBlocking(true);
 	Socket->SetBroadcast(true);
 	Socket->SetReuseAddr(true);
-	
+
 	UE_LOG(LogTemp, Warning, TEXT("Socket created(?)"));
 
 	FIPv4Address::Parse(address, ip);
@@ -40,45 +40,69 @@ FUDPCommunication::FUDPCommunication(FString& serverAddress, int32 portNumber)//
 
 	InternetAddress->SetIp(ip.Value);
 	InternetAddress->SetPort(port);
-	
+
 	binded = Socket->Bind(*InternetAddress);
 	if (binded == true)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Binded: true"));
 	}
 
-	FString message = ("Hello");
+	FString message = TEXT("Hellwerwo");
 	TCHAR *serializedMessage = message.GetCharArray().GetData();
 	int32 size = FCString::Strlen(serializedMessage);
-	int32 sent = 0;
+	int32 Sent = 0;
 
-	sent = Socket->SendTo((uint8*)TCHAR_TO_UTF8(serializedMessage), size, sent, *InternetAddress);
+	sent = Socket->SendTo((uint8*)TCHAR_TO_UTF8(serializedMessage), size, Sent, *InternetAddress);
 
-	if (sent && sent > 0)
+	if (sent == true && Sent > 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Message sent"));
+
 	}
 
 	uint32 Size;
+	TArray<uint8> ReceivedData;
 	TSharedRef<FInternetAddr> targetAddress = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
-	while(Socket->HasPendingData(Size))
+	if (Socket->HasPendingData(Size) == true)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Has data to receive"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No data"));
+	}
+	while (Socket->HasPendingData(Size))
+	{
+		ReceivedData.SetNumUninitialized(FMath::Min(Size, 65507u));
 		int32 Read;
-		TArray<uint8> ReceivedData;
-		received = Socket->RecvFrom(ReceivedData.GetData(), ReceivedData.Num(), Read, *targetAddress);	
+		received = Socket->RecvFrom(ReceivedData.GetData(), ReceivedData.Num(), Read, *targetAddress);
 		if (received == true)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Message Received"));
 		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Message was not received"));
+		}
 	}
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Data Read! %d"), ReceivedData.Num()));
 
+	FString data;
+	const std::string cstr(reinterpret_cast<const char*>(ReceivedData.GetData()), ReceivedData.Num());
+	data += FString(cstr.c_str());
+	UE_LOG(LogTemp, Warning, TEXT("message:%s"), *data);
+	
 }
+
+
 
 FUDPCommunication::~FUDPCommunication()
 {
 	ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(Socket);
 	//Socket = nullptr;
 }
+
+
 
 /*bool FUDPCommunication::Init()
 {
