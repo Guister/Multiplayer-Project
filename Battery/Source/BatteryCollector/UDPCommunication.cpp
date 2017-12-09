@@ -22,8 +22,11 @@ and Windows documentation on Winsock2
 
 #define BUFLEN 512  // Max length of buffer
 
+FUDPCommunication::FUDPCommunication()
+{
+}
 
-FUDPCommunication::FUDPCommunication(FString& serverAddress, int32 portNumber)//, ESocketType socketType)
+bool FUDPCommunication::Connection(FString& serverAddress, int32 portNumber)//, ESocketType socketType)
 {
 	serverAddress = address;
 	portNumber = port;
@@ -31,6 +34,7 @@ FUDPCommunication::FUDPCommunication(FString& serverAddress, int32 portNumber)//
 	Socket->SetNonBlocking(true);
 	Socket->SetBroadcast(true);
 	Socket->SetReuseAddr(true);
+	//Socket->SetRecvErr(true);
 
 	UE_LOG(LogTemp, Warning, TEXT("Socket created(?)"));
 
@@ -45,21 +49,34 @@ FUDPCommunication::FUDPCommunication(FString& serverAddress, int32 portNumber)//
 	if (binded == true)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Binded: true"));
+		return true;
 	}
-
-	FString message = TEXT("Hellwerwo");
+	else
+	{
+		return false;
+	}
+}
+bool FUDPCommunication::sendMessage(FString Message)
+{
+	FString message = TEXT("Hellooo");
+	//FTimespan waitTime = FTimespan(10);
 	TCHAR *serializedMessage = message.GetCharArray().GetData();
 	int32 size = FCString::Strlen(serializedMessage);
 	int32 Sent = 0;
 
 	sent = Socket->SendTo((uint8*)TCHAR_TO_UTF8(serializedMessage), size, Sent, *InternetAddress);
-
 	if (sent == true && Sent > 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Message sent"));
-
+		return true;
 	}
-
+	else
+	{
+		return false;
+	}
+}
+FString FUDPCommunication::receiveMessage()
+{
 	uint32 Size;
 	TArray<uint8> ReceivedData;
 	TSharedRef<FInternetAddr> targetAddress = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
@@ -86,13 +103,27 @@ FUDPCommunication::FUDPCommunication(FString& serverAddress, int32 portNumber)//
 		}
 	}
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Data Read! %d"), ReceivedData.Num()));
+	//return StringFromBinaryArray(ReceivedData);
 
 	FString data;
 	const std::string cstr(reinterpret_cast<const char*>(ReceivedData.GetData()), ReceivedData.Num());
 	data += FString(cstr.c_str());
 	UE_LOG(LogTemp, Warning, TEXT("message:%s"), *data);
+	return data;
+}
+
+/*
+FString FUDPCommunication::StringFromBinaryArray(const TArray<uint8>&  BinaryArray)
+{
+	//FString data;
+	const std::string cstr(reinterpret_cast<const char*>(BinaryArray.GetData()), BinaryArray.Num());
+	//data += FString(cstr.c_str());
+	UE_LOG(LogTemp, Warning, TEXT("message:%s"), FString(cstr.c_str()));
+	return FString(cstr.c_str());
 	
 }
+*/
+
 
 
 
