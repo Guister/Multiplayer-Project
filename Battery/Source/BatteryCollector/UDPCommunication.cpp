@@ -58,9 +58,9 @@ bool FUDPCommunication::Connection(FString& serverAddress, int32 portNumber)//, 
 }
 bool FUDPCommunication::sendMessage(FString Message)
 {
-	FString message = TEXT("Hellooo");
+	//FString message = TEXT("Hello");
 	//FTimespan waitTime = FTimespan(10);
-	TCHAR *serializedMessage = message.GetCharArray().GetData();
+	TCHAR *serializedMessage = Message.GetCharArray().GetData();
 	int32 size = FCString::Strlen(serializedMessage);
 	int32 Sent = 0;
 

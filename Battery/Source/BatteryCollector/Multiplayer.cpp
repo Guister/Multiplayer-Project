@@ -1,7 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Multiplayer.h"
-#include "UDPCommunication.h"
+#include "AllowWindowsPlatformTypes.h"
+#include <thread>
+#include <queue>
+#include "HideWindowsPlatformTypes.h"		
+#include <stdio.h>
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+
 
 
 // Sets default values
@@ -21,15 +29,25 @@ void AMultiplayer::BeginPlay()
 	FString address = "127.0.0.1";
 
 
-
-	FUDPCommunication connectionObj;
 	connectionObj.Connection(address, port);
-	UE_LOG(LogTemp, Warning, TEXT("wtf"));
+	
+	/*std::thread t (connectionObj.receiveMessage);
+	std::queue<int> q;
+	
+
+	for (int i = 0; i < 6; i++)
+	{
+		
+	}*/
 }
 	
 // Called every frame
 void AMultiplayer::Tick(float DeltaTime)
 {
+	FString message = TEXT("Hello");;
+
+	connectionObj.sendMessage(message);
+	connectionObj.receiveMessage();
 	//FString message = TEXT("Helloo");;
 	//FUDPCommunication messageObj;
 

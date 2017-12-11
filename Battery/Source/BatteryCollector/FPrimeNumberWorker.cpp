@@ -8,7 +8,7 @@
 FPrimeNumberWorker* FPrimeNumberWorker::Runnable = NULL;
 //***********************************************************
 
-FPrimeNumberWorker::FPrimeNumberWorker(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind, APlayerController* IN_PC)
+FPrimeNumberWorker::FPrimeNumberWorker(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind, ATP_TopDownPlayerController* IN_PC)
 	: ThePC(IN_PC)
 	, TotalPrimesToFind(IN_TotalPrimesToFind)
 	, StopTaskCounter(0)
@@ -17,7 +17,7 @@ FPrimeNumberWorker::FPrimeNumberWorker(TArray<uint32>& TheArray, const int32 IN_
 	//Link to where data should be stored
 	PrimeNumbers = &TheArray;
 
-	Thread = FRunnableThread::Create(this, TEXT("FPrimeNumberWorker"), 0, TPri_BelowNormal); //windows default = 8mb for thread, could specify more
+	Thread = FRunnableThread::Create(this, TEXT("FPrimeNumberWorker2"), 0, TPri_BelowNormal); //windows default = 8mb for thread, could specify more
 }
 
 FPrimeNumberWorker::~FPrimeNumberWorker()
@@ -36,7 +36,7 @@ bool FPrimeNumberWorker::Init()
 
 	if (ThePC)
 	{
-		ThePC->ClientMessage("**********************************");
+		ThePC->ClientMessage("**********************************", NAME_None, 5.0f);
 		ThePC->ClientMessage("Prime Number Thread Started!");
 		ThePC->ClientMessage("**********************************");
 	}
@@ -64,7 +64,7 @@ uint32 FPrimeNumberWorker::Run()
 
 		//	  All calcs for making stuff can be done in the threads
 		//	     But the actual making/modifying of the UObjects should be done in main game thread.
-		ThePC->ClientMessage(FString::FromInt(PrimeNumbers->Last()));
+		ThePC->ClientMessage(FString::FromInt(PrimeNumbers->Last()), NAME_None, 20.0f);
 		//***************************************
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,7 +85,7 @@ void FPrimeNumberWorker::Stop()
 	StopTaskCounter.Increment();
 }
 
-FPrimeNumberWorker* FPrimeNumberWorker::JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind, APlayerController* IN_PC)
+FPrimeNumberWorker* FPrimeNumberWorker::JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind, ATP_TopDownPlayerController* IN_PC)
 {
 	//Create new instance of thread if it does not exist
 	//		and the platform supports multi threading!

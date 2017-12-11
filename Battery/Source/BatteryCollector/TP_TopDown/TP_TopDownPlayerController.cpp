@@ -3,13 +3,23 @@
 #include "TP_TopDownPlayerController.h"
 #include "AI/Navigation/NavigationSystem.h"
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
+#include "FPrimeNumberWorker.h"
+#include "Engine.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "TP_TopDownCharacter.h"
+
 
 ATP_TopDownPlayerController::ATP_TopDownPlayerController()
 {
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Crosshairs;
+}
+
+void ATP_TopDownPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	FPrimeNumberWorker::JoyInit(PrimeNumbers, 50000, this);
 }
 
 void ATP_TopDownPlayerController::PlayerTick(float DeltaTime)
@@ -21,6 +31,8 @@ void ATP_TopDownPlayerController::PlayerTick(float DeltaTime)
 	{
 		MoveToMouseCursor();
 	}
+
+	//GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Yellow, FString::Printf(TEXT("MyRandomVec = %d "), PrimeNumbers.Num));
 }
 
 void ATP_TopDownPlayerController::SetupInputComponent()
@@ -109,4 +121,10 @@ void ATP_TopDownPlayerController::OnSetDestinationReleased()
 {
 	// clear flag to indicate we should stop updating the destination
 	bMoveToMouseCursor = false;
+}
+
+void ATP_TopDownPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	FPrimeNumberWorker::Shutdown();
+	Super::EndPlay(EndPlayReason);
 }

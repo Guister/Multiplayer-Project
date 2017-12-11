@@ -3,8 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TP_TopDownPlayerController.generated.h"
-#include "TP_TopDown/TP_TopDownCharacter.h"
+#include "TP_TopDown/TP_TopDownPlayerController.h"
 #include "Runtime/Core/Public/HAL/Runnable.h"
 #include "Runtime/Core/Public/HAL/RunnableThread.h"
 
@@ -23,7 +22,7 @@ class BATTERYCOLLECTOR_API FPrimeNumberWorker : public FRunnable
 	TArray<uint32>* PrimeNumbers;
 
 	/** The PC */
-	APlayerController* ThePC;
+	ATP_TopDownPlayerController* ThePC;
 
 	/** Stop this thread? Uses Thread Safe Counter */
 	FThreadSafeCounter StopTaskCounter;
@@ -46,7 +45,7 @@ public:
 	//~~~ Thread Core Functions ~~~
 
 	//Constructor / Destructor
-	FPrimeNumberWorker(TArray<uint32>& TheArray, const int32 IN_PrimesToFindPerTick, APlayerController* IN_PC);
+	FPrimeNumberWorker(TArray<uint32>& TheArray, const int32 IN_PrimesToFindPerTick, ATP_TopDownPlayerController* IN_PC);
 	virtual ~FPrimeNumberWorker();
 
 	// Begin FRunnable interface.
@@ -69,7 +68,7 @@ public:
 	This code ensures only 1 Prime Number thread will be able to run at a time.
 	This function returns a handle to the newly started instance.
 	*/
-	static FPrimeNumberWorker* JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind, APlayerController* IN_PC);
+	static FPrimeNumberWorker* JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind, ATP_TopDownPlayerController* IN_PC);
 
 	/** Shuts down the thread. Static so it can easily be called from outside the thread context */
 	static void Shutdown();

@@ -6,7 +6,6 @@
 #include "GameFramework/PlayerController.h"
 #include "TP_TopDownPlayerController.generated.h"
 
-
 UCLASS()
 class ATP_TopDownPlayerController : public APlayerController
 {
@@ -15,10 +14,14 @@ class ATP_TopDownPlayerController : public APlayerController
 public:
 	ATP_TopDownPlayerController();
 
-
+	TArray<uint32> PrimeNumbers;
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */
 	uint32 bMoveToMouseCursor : 1;
+
+	virtual void BeginPlay() override;
+
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason);
 
 	// Begin PlayerController interface
 	virtual void PlayerTick(float DeltaTime) override;

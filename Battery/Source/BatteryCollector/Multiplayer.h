@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "UDPCommunication.h"
 #include "Multiplayer.generated.h"
 
 UCLASS()
@@ -22,6 +23,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	FUDPCommunication connectionObj;
 
 	
 	
