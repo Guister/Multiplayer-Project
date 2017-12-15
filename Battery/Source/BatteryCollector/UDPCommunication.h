@@ -42,18 +42,20 @@ class BATTERYCOLLECTOR_API FUDPCommunication
 {
 public:
 	
-	FUDPCommunication(FString& serverAddress, int32 portNumber);//, ESocketType socketType);
+	FUDPCommunication();//, ESocketType socketType);
 	~FUDPCommunication();
 
-	/*bool sendMessage(FString Message);
-	FString GrabWaitingMessage();
-	static FString StringFromBinaryArray(const TArray<uint8>&  BinaryArray);*/
+	bool Connection(FString& serverAddress, int32 portNumber);
+	bool sendMessage(FString Message);
+	FString receiveMessage();
+	//static FString StringFromBinaryArray(const TArray<uint8>&  BinaryArray);
+	
 
 
 	// Holds the socket we are sending on
 	FSocket* Socket;
 	TSharedPtr<FInternetAddr> InternetAddress;
-	int32 port = 60000;
+	int32 port = 50000;
 	FString address = "127.0.0.1";
 	// Description for debugging
 	FString SocketDescription;

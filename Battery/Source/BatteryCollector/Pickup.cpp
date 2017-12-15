@@ -14,7 +14,7 @@ APickup::APickup()
 	bIsActive = true;
 
 	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Pickup"));
-	PickupMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepWorldTransform);
+	PickupMesh->SetupAttachment(RootComponent);
 		
 }
 
