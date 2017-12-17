@@ -22,8 +22,8 @@ class BATTERYCOLLECTOR_API USendCharacterMovement : public UBlueprintFunctionLib
 		MoveRight
 	};
 
-
+	/*
 	UFUNCTION(BlueprintCallable, Category = "Communication")
-		FString Comm(int32 id, enum cases, FString data);
+		FString Comm(int32 id, enum cases, FString data);*/
 	
 };
