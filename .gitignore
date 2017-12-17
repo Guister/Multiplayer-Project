@@ -13,3 +13,5 @@ obj/
 *.sdf
 *.suo
 maliputy/Content/Groundplain/NewMaterial.uasset
+Battery/BatteryCollector.VC.db
+Battery/Content/Game_elements.7z
