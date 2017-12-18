@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "RPS.generated.h"
-
+/*
 UCLASS()
 class BATTERYCOLLECTOR_API URPS : public UBlueprintFunctionLibrary
 {
