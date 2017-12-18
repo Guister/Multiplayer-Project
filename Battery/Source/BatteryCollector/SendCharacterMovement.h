@@ -7,28 +7,31 @@
 #include "UDPCommunication.h"
 #include "SendCharacterMovement.generated.h"
 
-/**
- * 
- */
+UENUM(BlueprintType)
+enum class casesEnum : uint8
+{
+	mvf 	UMETA(DisplayName = "mvf"),
+	mvr 	UMETA(DisplayName = "mvr")
+};
 UCLASS()
 class BATTERYCOLLECTOR_API USendCharacterMovement : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 
-		FUDPCommunication object;
+	FUDPCommunication object;
 	FString message;
-	enum cases {
+	/*enum cases {
 		MoveForward,
 		MoveRight
-	};
-
-	/*
+	};*/
+	
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enum)
+		casesEnum cases;*/
+	
 	UFUNCTION(BlueprintCallable, Category = "Communication")
-<<<<<<< HEAD
-		FString SendComm(int32 id, cases action, FString data);
-=======
-		FString Comm(int32 id, enum cases, FString data);*/
->>>>>>> ea1afcffade257af11a40e1c4b9bd3c4faaa50a7
+		FString SendComm(int32 id, casesEnum cases, FString data);
+
+	
 	
 	UFUNCTION(BlueprintCallable, Category = "Communication")
 		bool ReceiveCommunication();

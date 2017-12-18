@@ -3,7 +3,8 @@
 #include "SendCharacterMovement.h"
 
 
-FString USendCharacterMovement::SendComm(int32 id, cases action, FString data)
+
+FString USendCharacterMovement::SendComm(int32 id, casesEnum cases, FString data)
 {
 	//int number;
 	FString actionString;
@@ -13,14 +14,14 @@ FString USendCharacterMovement::SendComm(int32 id, cases action, FString data)
 
 	//while (number >= MoveForward && number <= MoveRight)
 	//{ 
-		switch (action)
+		switch (cases)
 		{
-		case MoveForward:
-			actionString = TEXT("mvw");
+		case casesEnum::mvf:
+			actionString = TEXT("mvf");
 
 			break;
 
-		case MoveRight:
+		case casesEnum::mvr:
 			actionString = TEXT("mvr");
 
 			break;
