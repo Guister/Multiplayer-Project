@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
+#include "EngineUtils.h"
+#include "TP_TopDown/TP_TopDownPlayerController.h"
 #include <string>
 
 
@@ -45,6 +47,7 @@ void AMultiplayer::BeginPlay()
 void AMultiplayer::Tick(float DeltaTime)
 {
 	FString message = TEXT("Hello");;
+	FString ola;
 
 	connectionObj.sendMessage(message);
 	connectionObj.receiveMessage();
@@ -53,6 +56,19 @@ void AMultiplayer::Tick(float DeltaTime)
 
 	//messageObj.sendMessage(message);
 	//messageObj.receiveMessage();
+
+	UWorld* const World = GetWorld();
+	if (World)
+	{
+		for (TActorIterator<AStaticMeshActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+		{
+			// Same as with the Object Iterator, access the subclass instance with the * or -> operators.
+			AStaticMeshActor *Mesh = *ActorItr;
+			//ola = (ActorItr->GetName());
+			ola = (ActorItr->GetActorLocation().ToString());
+
+		}
+	}
 }
 
 
