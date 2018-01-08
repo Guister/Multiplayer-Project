@@ -18,7 +18,6 @@ class BATTERYCOLLECTOR_API USendCharacterMovement : public UBlueprintFunctionLib
 {
 	GENERATED_BODY()
 
-public:
 	FUDPCommunication object;
 	FString message;
 	/*enum cases {
@@ -32,8 +31,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Communication")
 		FString SendComm(int32 id, casesEnum cases, FString data);
 
-	UFUNCTION(BlueprintCallable, Category = "Communication")
-		static void a();
+	
 	
 	UFUNCTION(BlueprintCallable, Category = "Communication")
 		bool ReceiveCommunication();

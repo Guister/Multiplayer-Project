@@ -3,7 +3,5 @@
 #include "BlueprintAccess.h"
 
 
-void UBlueprintAccess::senda()
-{
-	//object.SendComm(id, cases, data);
-}
+
+

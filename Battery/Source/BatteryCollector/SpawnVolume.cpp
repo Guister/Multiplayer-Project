@@ -30,7 +30,8 @@ void ASpawnVolume::BeginPlay()
 	SpawnDelay = FMath::FRandRange(SpawnDelayRangeLow, SpawnDelayRangeHigh);
 	GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawnVolume::SpawnPickup, 10.0f, false);
 
-	
+	int32 port = 50000;
+	FString address = "127.0.0.1";
 	
 
 	//FUDPCommunication connection = FUDPCommunication(address, port);

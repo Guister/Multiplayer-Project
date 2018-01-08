@@ -6,11 +6,14 @@
 
 FString USendCharacterMovement::SendComm(int32 id, casesEnum cases, FString data)
 {
-	
+	//int number;
 	FString actionString;
 	FString idString;
 	FString finalMessage;
 
+
+	//while (number >= MoveForward && number <= MoveRight)
+	//{ 
 		switch (cases)
 		{
 		case casesEnum::mvf:
@@ -37,31 +40,28 @@ FString USendCharacterMovement::SendComm(int32 id, casesEnum cases, FString data
 
 		return finalMessage;
 		
+	//}
 }
 
 bool USendCharacterMovement::ReceiveCommunication()
 {
 
 	FString originalString;
-	std::string exampleID;
-	std::string exampleAction;
-	std::string exampleData;
+	FString exampleID;
+	FString exampleAction;
+	FString exampleData;
 
 	originalString = object.receiveMessage();
 
-	std::string originalstringSTD(TCHAR_TO_UTF8(*originalString));
+	exampleID = originalString.Left(2);
+	exampleAction = originalString.Mid(2, 3);
+	exampleData = originalString.Right(1);
 
-	exampleID = originalstringSTD.substr(0, 2);
-	exampleAction = originalstringSTD.substr(2, 3);
-	exampleData = originalstringSTD.substr(5, 1);
-
-	FString ID(exampleID.c_str());
-	FString Action(exampleAction.c_str());
-	FString Data(exampleData.c_str());
+	
+	
 	
 	
 	return false;
 }
 
-void USendCharacterMovement::a()
-{}
+
