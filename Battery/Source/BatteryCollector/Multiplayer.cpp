@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
+#include "ConfigCacheIni.h"
 #include "EngineUtils.h"
 #include "TP_TopDown/TP_TopDownPlayerController.h"
 #include <string>
@@ -25,10 +26,12 @@ AMultiplayer::AMultiplayer()
 // Called when the game starts or when spawned
 void AMultiplayer::BeginPlay()
 {
-	Super::BeginPlay();
+	int32 port;
+	FString address;
 
-	int32 port = 50000;
-	FString address = "127.0.0.1";
+	GConfig->GetString(TEXT("/Script/Engine.Network"), TEXT("address"), address, GGameIni);
+	GConfig->GetInt(TEXT("/Script/Engine.Network"), TEXT("port"), port, GGameIni);
+	Super::BeginPlay();
 
 
 	connectionObj.Connection(address, port);
